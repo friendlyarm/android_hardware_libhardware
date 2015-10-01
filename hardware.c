@@ -33,7 +33,7 @@
 
 /**
  * There are a set of variant filename for modules. The form of the filename
- * is "<MODULE_ID>.variant.so" so for the led module the Dream variants 
+ * is "<MODULE_ID>.variant.so" so for the led module the Dream variants
  * of base "ro.product.board", "ro.board.platform" and "ro.arch" would be:
  *
  * led.trout.so
@@ -95,7 +95,9 @@ static int load(const char *id,
         goto done;
     }
 
-    hmi->dso = handle;
+    // psw0523 fix for lights module loading segfault
+    if (strcmp(id, "lights"))
+        hmi->dso = handle;
 
     /* success */
     status = 0;
